@@ -1,0 +1,68 @@
+﻿<Window x:Class="game.EnterName"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:game"
+        mc:Ignorable="d"
+        Title="EnterName" Height="515" Width="800">
+    <Grid Background="AliceBlue">
+        <!-- Grid -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox x:Name="NameInput" 
+                 Grid.Row="2"
+                 Grid.Column="1"
+                 />
+
+        <!-- De titel -->
+        <Label Grid.Row="0"
+               Grid.ColumnSpan="5"
+               FontFamily="Comic Sans MS"
+               FontSize="36"
+               FontWeight="Bold"
+               VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center"
+               Content="Enter your name" />
+
+        <!-- De buttons -->
+
+        <Button Grid.Row="0" 
+                Grid.Column="0" 
+                Click="EnterName_Back_Button_Click" 
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                FontFamily="Comic Sans MS" 
+                FontSize="28">
+            Back
+        </Button>
+
+        <Button Grid.Row="6" 
+                Grid.Column="1" 
+                Click="EnterName_Start_Button_Click" 
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                FontFamily="Comic Sans MS" 
+                FontSize="28">
+            Start
+        </Button>
+
+    </Grid>
+</Window>
