@@ -10,10 +10,14 @@
 
   <ItemGroup>
     <None Remove="Audio\AudioGame.mp3" />
+    <None Remove="HighScores.db" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Audio\AudioGame.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HighScores.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
