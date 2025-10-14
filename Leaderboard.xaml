@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:game"
         mc:Ignorable="d"
-        Title="Leaderboard" Height="515" Width="800">
+        Title="Leaderboard" Height="700" Width="1000">
     <Grid Background="AliceBlue">
         <!-- Grid -->
         <Grid.RowDefinitions>
