@@ -5,9 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:game"
         mc:Ignorable="d"
-        Title="StartPage" Height="700" Width="1000">
+        Title="StartPage"
+        Height="700"
+        Width="1000"
+        Background="AliceBlue">
 
-    <Grid Background="AliceBlue">
+    <Window.Resources>
+        <!--
+        Image resource should be added to the project at: /images/stripboek_background.png
+        Set its Build Action = Resource. Adjust the pack URI if you place the image elsewhere.
+        -->
+        <ImageBrush x:Key="StartBackground"
+                    ImageSource="C:\Users\jcbal\Source\Repos\ComicClouds7\images\11791450_4845746.jpg"
+                    Stretch="UniformToFill" />
+    </Window.Resources>
+
+    <Grid Background="{StaticResource StartBackground}">
         <!-- Grid -->
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
@@ -39,45 +52,46 @@
                Content="ComicClouds" />
 
         <!-- De buttons -->
-        <Button Grid.Row="2" 
-                Grid.Column="1" 
-                Click="Play_Button_Click" 
-                HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch" 
-                FontFamily="Comic Sans MS" 
+        <Button Grid.Row="2"
+                Grid.Column="1"
+                Click="Play_Button_Click"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                FontFamily="Comic Sans MS"
                 FontSize="28">
             Play
         </Button>
 
-        <Button Grid.Row="4" 
-                Grid.Column="1" 
-                Click="High_Scores_Button_Click" 
-                HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch" 
-                FontFamily="Comic Sans MS" 
+        <Button Grid.Row="4"
+                Grid.Column="1"
+                Click="High_Scores_Button_Click"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                FontFamily="Comic Sans MS"
                 FontSize="28">
             High Scores
         </Button>
 
-        <Button Grid.Row="6" 
-                Grid.Column="1" 
-                Click="Settings_Button_Click" 
-                HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch" 
-                FontFamily="Comic Sans MS" 
+        <Button Grid.Row="6"
+                Grid.Column="1"
+                Click="Settings_Button_Click"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                FontFamily="Comic Sans MS"
                 FontSize="28">
             Settings
         </Button>
 
-        <Button Grid.Row="8" 
-                Grid.Column="1" 
-                Click="Quit_Button_Click" 
-                HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch" 
-                FontFamily="Comic Sans MS" 
+        <Button Grid.Row="8"
+                Grid.Column="1"
+                Click="Quit_Button_Click"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                FontFamily="Comic Sans MS"
                 FontSize="28">
             Quit
         </Button>
 
     </Grid>
+
 </Window>
