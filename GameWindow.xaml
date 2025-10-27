@@ -45,13 +45,13 @@
                     Grid.ColumnSpan="3"/>
 
             <!-- Finish Game button -->
-            <Button Grid.Row="13" 
-                    Grid.Column="2" 
+            <Button Grid.Row="12" 
+                    Grid.Column="1" 
                     Click="GameWindow_Finnish_Game_Button_Click" 
                     FontFamily="Comic Sans MS" 
                     FontSize="28" 
-                    Grid.ColumnSpan="3" 
-                    Margin="0,0,0,-50">
+                    Grid.ColumnSpan="2" 
+                    Margin="428,40,0,10" Grid.RowSpan="3">
                 Finish Game
             </Button>
 
@@ -114,5 +114,17 @@
                 FontSize="28"
                 Click="PauseButton_Click"
                 Panel.ZIndex="200"/>
+
+        <TextBlock x:Name="GameTimerText"
+                   Text="00:00"
+                   FontFamily="Consolas"
+                   FontSize="50"
+                   FontWeight="Bold"
+                   Foreground="Black"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="0,54,0,0"
+                   Panel.ZIndex="200"/>
     </Grid>
+
 </Window>
