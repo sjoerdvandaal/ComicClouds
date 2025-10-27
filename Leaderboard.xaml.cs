@@ -28,8 +28,8 @@ namespace game
 
             Players = new ObservableCollection<Player>
             {
-                new Player { Name = "Alice", Score = 100 },
-                new Player { Name = "Bob", Score = 150 }
+                new Player { Name = "Bas", Score = 150 },
+                new Player { Name = "Jente", Score = 100 }
             };
 
             DataContext = this;

@@ -34,7 +34,9 @@ namespace game
 
         private void High_Scores_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            Leaderboard lb = new Leaderboard();
+            lb.Visibility = Visibility.Visible;
+            this.Visibility = Visibility.Hidden;
         }
 
         private void Settings_Button_Click(object sender, RoutedEventArgs e)

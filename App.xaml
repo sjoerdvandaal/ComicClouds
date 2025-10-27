@@ -1,9 +1,16 @@
-﻿<Application x:Class="ComicClouds.App"
+﻿<Application x:Class="game.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ComicClouds"
              StartupUri="StartPage.xaml">
     <Application.Resources>
-         
+        <!-- Hidden MediaElement for background music -->
+        <MediaElement x:Key="BackgroundMusicPlayer"
+                      LoadedBehavior="Manual"
+                      UnloadedBehavior="Manual"
+                      Volume="1.0"
+                      Source="Audio/AudioGame.mp3"
+                      MediaEnded="BackgroundMusicPlayer_MediaEnded"
+                      Visibility="Hidden"/>
     </Application.Resources>
 </Application>
+

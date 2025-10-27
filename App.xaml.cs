@@ -1,36 +1,31 @@
-﻿using System;
-using System.Configuration;
-using System.Data;
-using System.Windows;
-using System.Windows.Media;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace game
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        public static MediaPlayer BackgroundMusic { get; private set; }
-
-        static App()
-        {
-            BackgroundMusic = new MediaPlayer();
-            BackgroundMusic.Open(new Uri("Audio/AudioGame.mp3", UriKind.Relative));
-            BackgroundMusic.Volume = 1.0;
-
-            BackgroundMusic.MediaEnded += (s, args) =>
-            {
-                BackgroundMusic.Position = TimeSpan.Zero;
-                BackgroundMusic.Play();
-            };
-        }
+        // Global reference to the hidden MediaElement
+        public static MediaElement BackgroundMusic { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            BackgroundMusic.Play(); // Start playing after app launches
+
+            // Retrieve the MediaElement from resources
+            BackgroundMusic = (MediaElement)Resources["BackgroundMusicPlayer"];
+            BackgroundMusic.Volume = 1.0; // Start at 100%
+            BackgroundMusic.Play();
+        }
+
+        // Loop the music
+        private void BackgroundMusicPlayer_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            BackgroundMusic.Position = System.TimeSpan.Zero;
+            BackgroundMusic.Play();
         }
     }
-
 }
+
+
+
