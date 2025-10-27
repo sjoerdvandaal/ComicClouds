@@ -16,5 +16,10 @@ namespace game
         {
             throw new NotImplementedException();
         }
+        public void Dispose()
+        {
+
+        }
     }
+        
 }

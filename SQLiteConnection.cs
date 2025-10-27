@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace game
 {
     internal class SQLiteConnection : IDisposable
@@ -13,6 +14,11 @@ namespace game
         internal void Open()
         {
             throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }

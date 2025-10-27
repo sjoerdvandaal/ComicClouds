@@ -1,5 +1,5 @@
-﻿
-using game;
+﻿using game;
+using System;
 using System.Data;
 
 internal class SQLiteDataAdapter : IDisposable
@@ -23,5 +23,10 @@ internal class SQLiteDataAdapter : IDisposable
     internal void Fill(DataTable table)
     {
         throw new NotImplementedException();
+    }
+
+    public void Dispose()
+    {
+
     }
 }
