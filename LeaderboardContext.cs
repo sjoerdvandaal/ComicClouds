@@ -1,43 +1,57 @@
-﻿using game;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Media;
+using System.Windows.Input;
+using System.Windows.Documents;
+using game;
 
-namespace YourNamespace
+public partial class LeaderboardWindow : Window
 {
-    public partial class MainWindow : Window
+    public DataGrid LeaderboardGrid { get; set; }
+
+    public LeaderboardWindow()
     {
-        public MainWindow()
+        InitializeComponent();
+        LeaderboardGrid = new DataGrid
         {
-            InitializeComponent();
-        }
+            Name = "LeaderboardGrid",
+            AutoGenerateColumns = true,
+            Margin = new Thickness(10)
+        };
+        this.Content = LeaderboardGrid;
+        this.Loaded += Window_Loaded;
+    }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+    private void InitializeComponent()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void LoadLeaderboard()
+    {
+        string dbPath = "Data Source=Data/highscore.db";
+        string query = "SELECT Player, Highscore, Date FROM Highscores ORDER BY Highscore DESC";
+
+        using (var connection = new System.Data.SQLite.SQLiteConnection(dbPath))
+        using (var adapter = new SQLiteDataAdapter(query, connection))
         {
-            LoadLeaderboard();
+            var table = new DataTable();
+            adapter.Fill(table);
+            LeaderboardGrid.ItemsSource = table.DefaultView;
         }
+    }
 
-        private void LoadLeaderboard()
-        {
-            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "highscore.db");
-            string connectionString = $"Data Source={dbPath}";
-            string query = "SELECT Player, Highscore, Date FROM Highscores ORDER BY Highscore DESC";
-
-            if (!File.Exists(dbPath))
-            {
-                MessageBox.Show("Database file not found: " + dbPath);
-                return;
-            }
-
-            using (var connection = new SQLiteConnection(connectionString))
-            using (var adapter = new SQLiteDataAdapter(query, connection))
-            {
-                DataTable table = new DataTable();
-                adapter.Fill(table);
-                LeaderboardGrid.ItemsSource = table.DefaultView;
-            }
-        }
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        LoadLeaderboard();
     }
 }
