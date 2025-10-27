@@ -5,6 +5,7 @@ internal class Score
     public required string ScorePlayerName { get; set; }
     public int ScoreValue { get; set; }
     public DateTime DatePlayed { get; set; }
+    public string PlayerName { get; private set; }
 
     /// <summary>
     /// Bereken score: hoe korter de elapsed tijd, hoe hoger de score.
@@ -29,6 +30,7 @@ internal class Score
     {
         return new Score
         {
+            ScorePlayerName = playerName,
             PlayerName = playerName,
             ScoreValue = CalculateScore(elapsed, difficultyMultiplier),
             DatePlayed = DateTime.UtcNow

@@ -1,54 +1,98 @@
 ﻿<Window x:Class="game.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:game"
-        mc:Ignorable="d"
-        Title="Settingd" Height="700" Width="1000">
+        Title="Settings" Height="690" Width="1000">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
-            <!-- Titel -->
+            <!-- Title -->
             <RowDefinition Height="80"/>
-            <!-- Music -->
+            <!-- Music Slider -->
             <RowDefinition Height="80"/>
-            <!-- Volume (optional) -->
+            <!-- Volume Slider -->
             <RowDefinition Height="*"/>
             <!-- Spacer -->
             <RowDefinition Height="60"/>
-            <!-- Back -->
+            <!-- Back button -->
         </Grid.RowDefinitions>
 
-        <!-- Titel -->
+        <!-- Title -->
         <Label Content="Settings"
-               FontFamily="Comic Sans MS"
                FontSize="32"
                FontWeight="Bold"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
 
-        <!-- Music button -->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="Music" FontSize="24" VerticalAlignment="Center" Margin="0,0,20,0"/>
-            <Button x:Name="MusicOnButton" Content="On" Width="80" Height="40" FontSize="18" Margin="0,0,10,0" Click="MusicOnButton_Click"/>
-            <Button x:Name="MusicOffButton" Content="Off" Width="80" Height="40" FontSize="18" Click="MusicOffButton_Click"/>
-        </StackPanel>
+        <!-- Music Volume Slider -->
+        <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- Volume button (optional) -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="Volume" FontSize="24" VerticalAlignment="Center" Margin="0,0,20,0"/>
-            <Button x:Name="VolumeOnButton" Content="On" Width="80" Height="40" FontSize="18" Margin="0,0,10,0" Click="VolumeOnButton_Click"/>
-            <Button x:Name="VolumeOffButton" Content="Off" Width="80" Height="40" FontSize="18" Click="VolumeOffButton_Click"/>
-        </StackPanel>
+            <Label Content="Music"
+                   FontSize="24"
+                   VerticalAlignment="Center"
+                   Margin="0,0,20,0"
+                   Grid.Column="0"/>
 
-        <!-- Back button -->
+            <Slider x:Name="MusicVolumeSlider"
+                    Minimum="0"
+                    Maximum="100"
+                    Value="100"
+                    TickFrequency="1"
+                    IsSnapToTickEnabled="True"
+                    ValueChanged="MusicVolumeSlider_ValueChanged"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"/>
+
+            <Label x:Name="VolumePercentageLabel"
+                   Content="100%"
+                   FontSize="18"
+                   VerticalAlignment="Center"
+                   Margin="10,0,0,0"
+                   Grid.Column="2"/>
+        </Grid>
+
+        <!-- Optional Volume Slider -->
+        <Grid Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Volume"
+                   FontSize="24"
+                   VerticalAlignment="Center"
+                   Margin="0,0,20,0"
+                   Grid.Column="0"/>
+
+            <Slider x:Name="VolumeSlider"
+                    Minimum="0"
+                    Maximum="100"
+                    Value="100"
+                    TickFrequency="1"
+                    IsSnapToTickEnabled="True"
+                    ValueChanged="VolumeSlider_ValueChanged"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"/>
+
+            <Label x:Name="VolumeSliderPercentageLabel"
+                   Content="100%"
+                   FontSize="18"
+                   VerticalAlignment="Center"
+                   Margin="10,0,0,0"
+                   Grid.Column="2"/>
+        </Grid>
+
+        <!-- Back Button -->
         <Button Content="Back"
                 Grid.Row="4"
                 Width="120"
                 Height="50"
-                FontFamily="Comic Sans MS"
                 FontSize="20"
                 HorizontalAlignment="Center"
                 Click="BackButton_Click"/>
