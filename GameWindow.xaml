@@ -20,7 +20,7 @@
 
                 <!-- Background comic panel -->
                 <Image x:Name="ComicBackground"
-                       Source="C:\Users\Leanmonkean\Source\Repos\ComicClouds\images\Hi-and-Lois.jpg"
+                       Source="pack://application:,,,/images/Hi-and-Lois.jpg"
                        Canvas.Left="119" Canvas.Top="61"
                        Width="576" Height="300"
                        Stretch="Fill"
