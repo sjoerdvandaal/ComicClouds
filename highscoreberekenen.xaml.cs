@@ -9,3 +9,4 @@
         int finalScore = (int)(baseScore * multiplier);
         return finalScore;
     }
+}

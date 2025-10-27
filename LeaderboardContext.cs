@@ -1,35 +1,43 @@
-﻿SQLite SQLiteAssembly = System.Data.SQLite;
-< DataGrid x: Name = "LeaderboardGrid" AutoGenerateColumns = "True" Margin = "10" />
-    using System;
-    using System.Collections.Generic;
-    using System.Data.SQLite;
-    using System.IO;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.ComponentModel;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Windows.Media;
-    using System.Windows.Input;
-    using System.Windows.Documents;
-    using System.Data;
+﻿using game;
+using System;
+using System.Data;
 using System.Data.SQLite;
+using System.IO;
+using System.Windows;
 
-private void LoadLeaderboard()
+namespace YourNamespace
 {
-    string dbPath = "Data Source=Data/highscore.db"; 
-    string query = "SELECT Player, Highscore, Date FROM Highscores ORDER BY Highscore DESC";
-
-    using (SQLiteConnection connection = new SQLiteConnection(dbPath))
-    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, connection))
+    public partial class MainWindow : Window
     {
-        DataTable table = new DataTable();
-        adapter.Fill(table);
-        LeaderboardGrid.ItemsSource = table.DefaultView;
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadLeaderboard();
+        }
+
+        private void LoadLeaderboard()
+        {
+            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "highscore.db");
+            string connectionString = $"Data Source={dbPath}";
+            string query = "SELECT Player, Highscore, Date FROM Highscores ORDER BY Highscore DESC";
+
+            if (!File.Exists(dbPath))
+            {
+                MessageBox.Show("Database file not found: " + dbPath);
+                return;
+            }
+
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var adapter = new SQLiteDataAdapter(query, connection))
+            {
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+                LeaderboardGrid.ItemsSource = table.DefaultView;
+            }
+        }
     }
-}
-private void Window_Loaded(object sender, RoutedEventArgs e)
-{
-    LoadLeaderboard();
 }
