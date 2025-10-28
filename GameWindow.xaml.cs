@@ -164,9 +164,9 @@ namespace game
         private void CheckButton_Click(object sender, RoutedEventArgs e)
         {
             string[] correctOrder = {
-                "We should go now!",
-                "Wait, what about the others?",
-                "Let's stick together!"
+                "Ja, Het is m'n derde al",
+                "Ben je nou alweer een broodje pindakaas aan het maken?",
+                "Ik vind ze gewoon heel lekker"
             };
 
             Border[] panels = { Panel1, Panel2, Panel3 };

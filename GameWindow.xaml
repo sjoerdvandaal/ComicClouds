@@ -74,11 +74,11 @@
                         MouseMove="Cloud_MouseMove"
                         MouseLeftButtonUp="Cloud_MouseLeftButtonUp"
                         Panel.ZIndex="2">
-                    <TextBlock Text="We should go now!"
+                    <TextBlock Text="Ja, Het is m'n derde al"
                                FontWeight="Bold"
                                TextAlignment="Center"
                                VerticalAlignment="Center"
-                               TextWrapping="Wrap"/>
+                               TextWrapping="Wrap" RenderTransformOrigin="0.077,0.671" Width="133"/>
                 </Border>
 
                 <Border x:Name="Cloud2" Background="LightCoral" CornerRadius="20" Cursor="Hand"
@@ -87,11 +87,11 @@
                         MouseMove="Cloud_MouseMove"
                         MouseLeftButtonUp="Cloud_MouseLeftButtonUp"
                         Panel.ZIndex="2">
-                    <TextBlock Text="Wait, what about the others?"
+                    <TextBlock Text="Ik vind ze gewoon heel lekker"
                                FontWeight="Bold"
                                TextAlignment="Center"
                                VerticalAlignment="Center"
-                               TextWrapping="Wrap"/>
+                               TextWrapping="Wrap" Width="147"/>
                 </Border>
 
                 <Border x:Name="Cloud3" Background="LightGreen" CornerRadius="20" Cursor="Hand"
@@ -100,11 +100,11 @@
                         MouseMove="Cloud_MouseMove"
                         MouseLeftButtonUp="Cloud_MouseLeftButtonUp"
                         Panel.ZIndex="2">
-                    <TextBlock Text="Let's stick together!"
+                    <TextBlock Text="Ben je nou alweer een broodje pindakaas aan het maken?"
                                FontWeight="Bold"
                                TextAlignment="Center"
                                VerticalAlignment="Center"
-                               TextWrapping="Wrap"/>
+                               TextWrapping="Wrap" RenderTransformOrigin="0.171,0.587" Width="178"/>
                 </Border>
 
                 <!-- Check Order Button -->
