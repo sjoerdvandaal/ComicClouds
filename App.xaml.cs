@@ -1,36 +1,26 @@
 ﻿using System;
-using System.Configuration;
-using System.Data;
 using System.Windows;
-using System.Windows.Media;
+using System.Windows.Controls;
 
-namespace game
+namespace ComicClouds
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        public static MediaPlayer BackgroundMusic { get; private set; }
-
-        static App()
-        {
-            BackgroundMusic = new MediaPlayer();
-            BackgroundMusic.Open(new Uri("Audio/AudioGame.mp3", UriKind.Relative));
-            BackgroundMusic.Volume = 1.0;
-
-            BackgroundMusic.MediaEnded += (s, args) =>
-            {
-                BackgroundMusic.Position = TimeSpan.Zero;
-                BackgroundMusic.Play();
-            };
-        }
+        public MediaElement BackgroundMusic { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            BackgroundMusic.Play(); // Start playing after app launches
+
+            BackgroundMusic = (MediaElement)Resources["BackgroundMusicPlayer"];
+            BackgroundMusic.MediaEnded += BackgroundMusicPlayer_MediaEnded;
+            BackgroundMusic.Play();
+        }
+
+        private void BackgroundMusicPlayer_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            BackgroundMusic.Position = TimeSpan.Zero;
+            BackgroundMusic.Play();
         }
     }
-
 }

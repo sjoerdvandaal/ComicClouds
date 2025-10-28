@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SQLite;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,11 +16,16 @@ namespace game
         private DateTime startTime;
         private TimeSpan pausedDuration = TimeSpan.Zero;
         private DateTime pauseStartTime;
+        private int finalScore = 0;
+        private double scoreMultiplier = 1.5; // change this for difficulty adjustment
 
         // Dragging clouds
         private bool isCloudDragging = false;
         private Point cloudClickPosition;
         private Border selectedCloud = null;
+
+        // ✅ Track if player finished the game
+        private bool hasCompletedGame = false;
 
         public GameWindow()
         {
@@ -76,7 +82,6 @@ namespace game
         }
 
         // --- CLOUD DRAGGING & SNAP LOGIC ---
-
         private void Cloud_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             selectedCloud = sender as Border;
@@ -132,17 +137,14 @@ namespace game
 
                     if (isOverlapping)
                     {
-                        // Snap cloud to panel exactly
                         Canvas.SetLeft(selectedCloud, panelLeft);
                         Canvas.SetTop(selectedCloud, panelTop);
                         selectedCloud.Width = panel.ActualWidth;
                         selectedCloud.Height = panel.ActualHeight;
 
-                        // Copy panel transform if any
                         if (panel.RenderTransform != null)
                             selectedCloud.RenderTransform = panel.RenderTransform.Clone();
 
-                        // Stretch inner TextBlock
                         if (selectedCloud.Child is TextBlock tb)
                         {
                             tb.TextAlignment = TextAlignment.Center;
@@ -159,7 +161,6 @@ namespace game
         }
 
         // --- CHECK ORDER LOGIC ---
-
         private void CheckButton_Click(object sender, RoutedEventArgs e)
         {
             string[] correctOrder = {
@@ -211,9 +212,85 @@ namespace game
             }
 
             if (allCorrect)
-                MessageBox.Show("Correct order! Well done!", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+            {
+                TimeSpan totalTime = DateTime.Now - startTime - pausedDuration;
+                int timeInSeconds = (int)totalTime.TotalSeconds;
+
+                finalScore = (int)(10000 / Math.Max(timeInSeconds, 1) * scoreMultiplier);
+
+                MessageBox.Show($"Correct order! Well done!\n\nYour Score: {finalScore}",
+                                "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                hasCompletedGame = true;
+
+                // Save the score to database
+                SaveHighScore(_playerName, finalScore);
+
+                // ✅ Return to Start Screen after pressing OK
+                StartPage sp = new StartPage();
+                sp.Show();
+                this.Close();
+            }
             else
+            {
                 MessageBox.Show("Not quite right. Try again!", "Result", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
+        }
+
+        // --- DATABASE HELPER METHODS ---
+        private string GetDatabasePath()
+        {
+            string folder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
+            if (!System.IO.Directory.Exists(folder))
+                System.IO.Directory.CreateDirectory(folder);
+
+            string dbPath = System.IO.Path.Combine(folder, "HighScores.db");
+            return dbPath;
+        }
+
+        private void EnsureDatabaseExists()
+        {
+            string dbPath = GetDatabasePath();
+
+            if (!System.IO.File.Exists(dbPath))
+            {
+                SQLiteConnection.CreateFile(dbPath);
+                using (var connection = new SQLiteConnection($"Data Source={dbPath};Version=3;"))
+                {
+                    connection.Open();
+                    string createTable = @"CREATE TABLE IF NOT EXISTS HighScores (
+                                            Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                            PlayerName TEXT NOT NULL,
+                                            Score INTEGER NOT NULL,
+                                            DatePlayed TEXT NOT NULL
+                                          );";
+                    using (var cmd = new SQLiteCommand(createTable, connection))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        private void SaveHighScore(string playerName, int score)
+        {
+            EnsureDatabaseExists();
+
+            string dbPath = GetDatabasePath();
+
+            using (var connection = new SQLiteConnection($"Data Source={dbPath};Version=3;"))
+            {
+                connection.Open();
+                string insertQuery = "INSERT INTO HighScores (PlayerName, Score, DatePlayed) VALUES (@name, @score, @date)";
+                using (var cmd = new SQLiteCommand(insertQuery, connection))
+                {
+                    cmd.Parameters.AddWithValue("@name", playerName);
+                    cmd.Parameters.AddWithValue("@score", score);
+                    cmd.Parameters.AddWithValue("@date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
